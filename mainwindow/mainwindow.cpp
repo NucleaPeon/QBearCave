@@ -5,35 +5,77 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-	this->aboutAction = new QAction(0);
-    this->aboutAction->setMenuRole(QAction::AboutRole);
-    this->aboutWindow = new About();
-    this->preferencesAction = new QAction(0);
-    this->preferencesAction->setMenuRole(QAction::PreferencesRole);
-    this->preferencesWindow = new Preferences();
     ui->setupUi(this);
-    this->mainMenuBar = new QMenuBar(0);
-    this->mainMenu = new QMenu(0);
-    this->mainMenuBar->addMenu(this->mainMenu);
-    this->mainMenu->addAction(this->aboutAction);
-    this->mainMenu->addAction(this->preferencesAction);
-    
-    connect(this->aboutAction, SIGNAL(triggered()), this->aboutWindow, SLOT(show()));
-    connect(this->preferencesAction, SIGNAL(triggered()), this->preferencesWindow, SLOT(show()));
+    this->aboutWindow = new About();
+    this->preferencesWindow = new Preferences();
 
-    this->statusBar = new QStatusBar();
-    this->setStatusBar(this->statusBar);
-    this->statusBar->showMessage("Ready.");
+    this->menugen = new QtMenuGen(":/menus/mainwindow.json");
+    this->menugen->setup(this, this);
+    qDebug() << this->menugen->menus();
+
+//    this->_undo_group = new QUndoGroup(this);
+//    this->_undo_action = this->menugen->actionByName("undo");
+//    this->_redo_action = this->menugen->actionByName("redo");
+//    this->_edit_menu = this->menugen->menuByName("Edit");
+
+//    connect(this->_edit_menu, SIGNAL(aboutToShow()),
+//                this, SLOT(editMenuAboutToShow()));
+//    connect(this->_edit_menu, SIGNAL(aboutToHide()),
+//            this, SLOT(editMenuAboutToHide()));
+    
+//    this->statusBar = new QStatusBar();
+//    this->setStatusBar(this->statusBar);
+//    this->statusBar->showMessage("Ready.");
+}
+
+
+void MainWindow::editMenuAboutToShow()
+{
+    qDebug() << Q_FUNC_INFO;
+//    if (this->_undo_group->stacks().count() == 0) {
+//        this->_undo_action->setText("Undo");
+//        this->_undo_action->setEnabled(false);
+//        this->_redo_action->setText("Redo");
+//        this->_redo_action->setEnabled(false);
+//        return;
+//    }
+//    if (this->_undo_group->canUndo()) {
+//        this->_undo_action->setText(QString("Undo %1").arg(this->_undo_group->undoText()));
+//    } else {
+//        this->_undo_action->setText("Undo");
+//    }
+//    this->_undo_action->setEnabled(this->_undo_group->canUndo());
+//    if (this->_undo_group->canRedo()) {
+//        this->_redo_action->setText(QString("Redo %1").arg(this->_undo_group->redoText()));
+//    } else {
+//        this->_redo_action->setText("Redo");
+//    }
+//    this->_redo_action->setEnabled(this->_undo_group->canRedo());
+}
+
+void MainWindow::editMenuAboutToHide()
+{
+    qDebug() << Q_FUNC_INFO;
+}
+
+int MainWindow::aboutToClose()
+{
+    qDebug() << Q_FUNC_INFO;
+    return QDialog::Accepted;
+}
+
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    qDebug() << Q_FUNC_INFO;
+    int code = this->aboutToClose();
+    if (code == QDialog::Accepted)
+        event->accept();
+    else
+        event->ignore();
 }
 
 MainWindow::~MainWindow()
 {
-	delete this->aboutAction;
-    delete this->aboutWindow;
-    delete this->preferencesAction;
-    delete this->preferencesWindow;
-    delete this->mainMenu;
-    delete this->mainMenuBar;
-    delete this->statusBar;
     delete ui;
 }

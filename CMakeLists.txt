@@ -13,6 +13,8 @@ project(QBearCave
 
 include(GNUInstallDirs)
 include(CTest)
+include(FindPkgConfig)
+
 set(QT_DEFAULT_MAJOR_VERSION "5" CACHE STRING "Qt Version defaults to 5 (OS X 10.6 default)")
 
 
@@ -30,7 +32,9 @@ find_package(Qt${QT_DEFAULT_MAJOR_VERSION} NAMES Qt5 Qt6 REQUIRED COMPONENTS
     Test
 )
 
-find_package(qt5menugen CONFIG REQUIRED 4.0)
+if(APPLE)
+        find_package(Qt${QT_DEFAULT_MAJOR_VERSION} REQUIRED COMPONENTS MacExtras)
+endif()
 
 if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "6")
     find_package(Qt6 REQUIRED COMPONENTS
@@ -44,11 +48,12 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
+find_package(qt5menugen CONFIG REQUIRED 2.0)
+
 list(APPEND APP_SOURCES
     mainwindow/mainwindow.cpp
     mainwindow/about.cpp
     mainwindow/preferences.cpp
-
     main.cpp
 )
 
@@ -65,17 +70,16 @@ list(APPEND APP_UIS
 )
 
 list(APPEND APP_RES
-    #mainwindow/mainwindow.qrc
+    mainwindow/mainwindow.qrc
 )
 
 list(APPEND APP_OTHER
-
+    mainwindow/mainwindow.json
 )
 
 
 if (APPLE)
     set(MACOSX_BUNDLE_ICON_FILE ${CMAKE_CURRENT_SOURCE_DIR}/QBearCave.icns )
-    set( "${MACOSX_BUNDLE_ICON_FILE}")
     list(APPEND APP_OTHER ${MACOSX_BUNDLE_ICON_FILE})
     list(APPEND APP_SOURCES cocoainitializer.mm)
     list(APPEND APP_HEADERS cocoainitializer.h)
@@ -84,6 +88,11 @@ if (APPLE)
             ${MACOSX_BUNDLE_ICON_FILE})
     file(COPY ${MACOSX_BUNDLE_ICON_FILE} DESTINATION
              ${CMAKE_CURRENT_BINARY_DIR})
+    set_source_files_properties(
+            ${APP_OTHER}
+            PROPERTIES
+            MACOSX_PACKAGE_LOCATION Resources/
+    )
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE
             ${OTHER_FILES}
             ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
@@ -96,10 +105,11 @@ if (APPLE)
     target_sources(${PROJECT_NAME} PRIVATE
             ${APP_OTHER}
     )
-    set_source_files_properties(
-            ${APP_OTHER}
-            PROPERTIES
-            MACOSX_PACKAGE_LOCATION Resources/
+    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS
+             "-Wl,-F/Library/Frameworks")
+    target_link_libraries(${PROJECT_NAME} stdc++
+            "-framework Cocoa"
+            objc
     )
     set_target_properties(${PROJECT_NAME} PROPERTIES
             BUNDLE TRUE
@@ -108,23 +118,17 @@ if (APPLE)
             MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
             MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
     )
-    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS
-             "-Wl,-F/Library/Frameworks")
-    target_link_libraries(${PROJECT_NAME} stdc++
-            "-framework Cocoa"
-            objc
-    )
 
 else()
     add_executable(${PROJECT_NAME}
             ${APP_OTHER}
-            main.cpp
             ${APP_HEADERS}
             ${APP_SOURCES}
             ${APP_UIS}
             ${APP_UI_HEADERS}
             ${APP_RES}
             ${CMAKE_CURRENT_SOURCE_DIR}/../QBearCave.png
+            main.cpp
         )
 endif()
 
@@ -149,7 +153,7 @@ if(${QT_DEFAULT_MAJOR_VERSION} STREQUAL "6")
         Qt6::Core5Compat
     )
 endif()
-
+target_include_directories(${PROJECT_NAME} BEFORE PRIVATE .. )
 target_include_directories(${PROJECT_NAME} BEFORE PRIVATE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}_autogen/include/)
 target_include_directories(${PROJECT_NAME} BEFORE PRIVATE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}_autogen/include/${PROJECT_BINARY_DIR}/${PROJECT_NAME}_autogen/include/)
 

@@ -17,8 +17,17 @@
 #include <QtGui/QUndoGroup>
 #endif
 
+#include <QtWidgets/QUndoView>
+#include <QtWidgets/QSplashScreen>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QMenu>
+#include <QtGui/QCloseEvent>
+
 #include "about.h"
 #include "preferences.h"
+
+#include <QtCore/QDebug>
 
 #include <qt5menugen.h>
 
@@ -34,15 +43,22 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void editMenuAboutToShow();
+    void editMenuAboutToHide();
+
+protected:
+    void closeEvent(QCloseEvent * event);
+
+private slots:
+    int aboutToClose();
+
 private:
     Ui::MainWindow *ui;
-    QMenu *mainMenu;
-    QMenuBar *mainMenuBar;
-    QAction *aboutAction;
-    QAction *preferencesAction;
     About *aboutWindow;
     Preferences *preferencesWindow;
     QStatusBar *statusBar;
+    QtMenuGen* menugen;
 };
 
 #endif // MAINWINDOW_H

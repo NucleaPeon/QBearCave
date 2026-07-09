@@ -27,4 +27,7 @@ OTHER_FILES = main.cpp\
         mainwindow/mainwindow.ui\
         mainwindow/about.ui\
         mainwindow/preferences.ui \
-        version.h.in
+        version.h.in \
+        version.h \
+        mainwindow/mainwindow.json \
+        mainwindow/mainwindow.qrc

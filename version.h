@@ -1,9 +1,22 @@
-#ifndef VERSION_H
-#define VERSION_H
+#ifndef QBEARCAVE_VERSION_H
+#define QBEARCAVE_VERSION_H
 
-#define RELEASE_VERSION "${RELEASE}"
-#define MAJOR_VERSION "${MAJOR}"
-#define MINOR_VERSION "${MINOR}"
-#define PATCH_VERSION "${PATCH}"
+// Compiler accessible definitions
 
-#endif // VERSION_H
+#define QBEARCAVE_VERSION_RELEASE "0"
+#define QBEARCAVE_VERSION_MAJOR "0"
+#define QBEARCAVE_VERSION_MINOR "0"
+#define QBEARCAVE_VERSION_PATCH "0"
+
+// Program accessible definitions
+
+namespace QBearCave {
+    namespace Version {
+        const int RELEASE = 0;
+        const int MAJOR = 0;
+        const int MINOR = 0;
+        const int PATCH = 0;
+    }
+}
+
+#endif // QBEARCAVE_VERSION_H

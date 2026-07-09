@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/menus">
+        <file>mainwindow.json</file>
+    </qresource>
+</RCC>
+
