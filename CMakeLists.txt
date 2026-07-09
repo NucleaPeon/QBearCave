@@ -127,7 +127,7 @@ else()
             ${APP_UIS}
             ${APP_UI_HEADERS}
             ${APP_RES}
-            ${CMAKE_CURRENT_SOURCE_DIR}/../QBearCave.png
+            ${CMAKE_CURRENT_SOURCE_DIR}/QBearCave.png
             main.cpp
         )
 endif()
