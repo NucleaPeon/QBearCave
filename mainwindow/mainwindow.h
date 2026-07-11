@@ -17,6 +17,9 @@
 #include <QtGui/QUndoGroup>
 #endif
 
+#include <QtCore/QItemSelectionModel>
+#include <QtCore/QAbstractItemModel>
+
 #include <QtWidgets/QUndoView>
 #include <QtWidgets/QSplashScreen>
 #include <QtWidgets/QMainWindow>
@@ -26,6 +29,7 @@
 
 #include "about.h"
 #include "preferences.h"
+#include "navigationviewmodel.h"
 
 #include <QtCore/QDebug>
 
@@ -52,6 +56,7 @@ protected:
 
 private slots:
     int aboutToClose();
+    void currentRowChange(const QModelIndex &current, const QModelIndex &previous);
     /*!
      * \brief closeRequest explicit call to close the QApplication
      *
@@ -61,9 +66,13 @@ private slots:
 
 private:
 
+    void setup();
+
     Ui::MainWindow *ui;
     About *aboutWindow;
     Preferences *preferencesWindow;
+    NavigationViewModel* _nav_model;
+    QItemSelectionModel* _select_model;
     QStatusBar *statusBar;
     QtMenuGen* menugen;
 

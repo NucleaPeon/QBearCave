@@ -9,14 +9,16 @@ MainWindow::MainWindow(QWidget *parent) :
     this->aboutWindow = new About();
     this->preferencesWindow = new Preferences();
 
+    setup();
+
     this->menugen = new QtMenuGen(":/menus/mainwindow.json");
     this->menugen->setup(this, this);
-    qDebug() << this->menugen->menus();
 
    this->_undo_group = new QUndoGroup(this);
    this->_undo_action = this->menugen->actionByName("undo");
    this->_redo_action = this->menugen->actionByName("redo");
    this->_edit_menu = this->menugen->menuByName("Edit");
+
 
    connect(this->_edit_menu, SIGNAL(aboutToShow()),
                this, SLOT(editMenuAboutToShow()));
@@ -65,9 +67,38 @@ int MainWindow::aboutToClose()
     return QDialog::Accepted;
 }
 
+void MainWindow::currentRowChange(const QModelIndex &current, const QModelIndex &previous)
+{
+    qDebug() << Q_FUNC_INFO;
+}
+
 void MainWindow::closeRequest()
 {
     this->close();
+}
+
+void MainWindow::setup()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    this->_nav_model = new NavigationViewModel();
+
+    this->_select_model = new QItemSelectionModel(this->_nav_model);
+    ui->listView->setModel(this->_nav_model);
+    ui->listView->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->listView->setSelectionModel(this->_select_model);
+    ui->listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+
+    _nav_model->appendRow(new QStandardItem(QIcon(), QObject::tr("Overview")));
+    _nav_model->appendRow(new QStandardItem(QIcon(), QObject::tr("Categories")));
+    _nav_model->appendRow(new QStandardItem(QIcon(), QObject::tr("Inventory")));
+    _nav_model->appendRow(new QStandardItem(QIcon(), QObject::tr("Financials")));
+    _nav_model->appendRow(new QStandardItem(QIcon(), QObject::tr("Database")));
+    this->ui->listView->selectionModel()->setCurrentIndex(_nav_model->index(0, 0), QItemSelectionModel::Select);
+    \
+    connect(this->_select_model, &QItemSelectionModel::currentRowChanged,
+            this, &MainWindow::currentRowChange);
 }
 
 

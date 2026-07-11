@@ -91,38 +91,39 @@
     {
         "name": "&View",
         "actions": [
-            {
-                "name": "zoom-in",
-                "text": "Zoom &In",
-                "icon": ":/common/zoom-in",
-                "shortcut": "Ctrl++",
-                "toolbar_hidden": true,
-                "slot": "zoomIn()"
-            },
-            {
-                "name": "zoom-1",
-                "text": "Zoom &1:1",
-                "icon": ":/common/zoom-1",
-                "shortcut": "Ctrl+0",
-                "toolbar_hidden": true,
-                "slot": "zoomOriginal()"
-            },
-            {
-                "name": "zoom-out",
-                "text": "Zoom &Out",
-                "icon": ":/common/zoom-out",
-                "shortcut": "Ctrl+-",
-                "toolbar_hidden": true,
-                "slot": "zoomOut()"
-            }
+
+        ]
+    },
+    {
+        "name": "&Categories",
+        "actions": [
+
+        ]
+    },
+    {
+        "name": "&Inventory",
+        "actions": [
+
+        ]
+    },
+    {
+        "name": "&Finances",
+        "actions": [
+
+        ]
+    },
+    {
+        "name": "&Database",
+        "actions": [
+
         ]
     },
     {
         "name": "&Help",
         "actions": [
             {
-                "name": "asdf",
-                "text": "&asdf",
+                "name": "about",
+                "text": "&About",
                 "toolbar_hidden": true,
                 "slot": "showAbout()"
             }

@@ -129,6 +129,7 @@ else()
             ${APP_RES}
             ${CMAKE_CURRENT_SOURCE_DIR}/QBearCave.png
             main.cpp
+            mainwindow/navigationviewmodel.h mainwindow/navigationviewmodel.cpp
         )
 endif()
 
