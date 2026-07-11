@@ -48,7 +48,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(qt5menugen CONFIG REQUIRED 2.0)
+find_package(qt5menugen CONFIG REQUIRED 4.0)
 
 list(APPEND APP_SOURCES
     mainwindow/mainwindow.cpp
@@ -160,7 +160,6 @@ target_include_directories(${PROJECT_NAME} BEFORE PRIVATE ${PROJECT_BINARY_DIR}/
 include_directories(BEFORE ${CMAKE_CURRENT_SOURCE_DIR})
 
 if(APPLE)
-        find_package(Qt${QT_DEFAULT_MAJOR_VERSION} REQUIRED COMPONENTS MacExtras)
         target_link_libraries(${PROJECT_NAME}
             Qt${QT_DEFAULT_MAJOR_VERSION}::MacExtras
         )

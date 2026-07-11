@@ -2,3 +2,5 @@ Makefile
 QBearCave_autogen/
 CMakeFiles/
 build/
+*.pro
+*.pro.user

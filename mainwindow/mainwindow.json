@@ -5,63 +5,54 @@
             {
                 "name": "new",
                 "text": "&New",
+                "toolbar_hidden": true,
+                "icon": ":/common/new",
                 "shortcut": "Ctrl+N",
-                "icon": ":/icons/document-new.png",
-                "slot": "new()"
+                "slot": "fileNew()"
             },
             {
-                "name": "open",
+                "name": "open-slide",
                 "text": "&Open",
+                "icon": ":/common/open",
                 "shortcut": "Ctrl+O",
-                "icon": ":/icons/document-open.png",
-                "slot": "open()"
-            },
-            {
-                "separator": true
-            },
-            {
-                "name": "save",
-                "text": "&Save",
-                "shortcut": "Ctrl+S",
-                "icon": ":/icons/document-save.png",
-                "slot": "save()"
-            },
-            {
-                "name": "save-as",
-                "text": "Save &As",
-                "shortcut": "Ctrl+Shift+S",
-                "icon": ":/icons/document-save-as.png",
-                "slot": "saveAs()"
-            },
-            {
-                "name": "Test",
-                "actions": [
-                    {
-                        "name": "test-submenu",
-                        "text": "Submenu Test"
-                    }
-                ]
-            },
-            {
-                "separator": true
+                "slot": "fileOpen()"
             },
             {
                 "name": "print",
                 "text": "&Print",
+                "toolbar_hidden": true,
+                "icon": ":/common/print",
                 "shortcut": "Ctrl+P",
-                "icon": ":/icons/document-print.png",
-                "slot": "print()"
+                "slot": "filePrint()"
             },
             {
-                "name": "quit",
+                "name": "save",
+                "text": "&Save",
+                "icon": ":/common/save",
+                "shortcut": "Ctrl+S",
+                "slot": "saveSlide()"
+            },
+            {
+                "name": "save-as",
+                "text": "Save &As",
+                "toolbar_hidden": true,
+                "icon": ":/common/save-as",
+                "shortcut": "Ctrl+Shift+S",
+                "slot": "saveSlideAs()"
+            },
+            {
+                "separator": true,
+                "toolbar_hidden": true
+            },
+            {
+                "name": "exit",
                 "text": "&Quit",
                 "toolbar_hidden": true,
                 "shortcut": "Ctrl+Q",
-                "icon": ":/icons/document-close.png",
-                "slot": "close()",
+                "icon": ":/common/exit",
+                "slot": "prepareToClose()",
                 "comment": "This will be applied to mac osx application menu automatically."
             }
-
         ]
     },
     {
@@ -72,7 +63,36 @@
                 "text": "&Preferences",
                 "shortcut": "Ctrl+Shift+P",
                 "toolbar_hidden": true,
-                "slot": "showPreferencesModal()"
+                "slot": "preferences()"
+            }
+        ]
+    },
+    {
+        "name": "&View",
+        "actions": [
+            {
+                "name": "zoom-in",
+                "text": "Zoom &In",
+                "icon": ":/common/zoom-in",
+                "shortcut": "Ctrl++",
+                "toolbar_hidden": true,
+                "slot": "zoomIn()"
+            },
+            {
+                "name": "zoom-1",
+                "text": "Zoom &1:1",
+                "icon": ":/common/zoom-1",
+                "shortcut": "Ctrl+0",
+                "toolbar_hidden": true,
+                "slot": "zoomOriginal()"
+            },
+            {
+                "name": "zoom-out",
+                "text": "Zoom &Out",
+                "icon": ":/common/zoom-out",
+                "shortcut": "Ctrl+-",
+                "toolbar_hidden": true,
+                "slot": "zoomOut()"
             }
         ]
     },
@@ -80,10 +100,10 @@
         "name": "&Help",
         "actions": [
             {
-                "name": "about",
-                "text": "&About",
+                "name": "asdf",
+                "text": "&asdf",
                 "toolbar_hidden": true,
-                "slot": "showAboutModal()"
+                "slot": "showAbout()"
             }
         ]
     }
