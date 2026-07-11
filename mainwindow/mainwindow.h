@@ -60,11 +60,17 @@ private slots:
     void closeRequest();
 
 private:
+
     Ui::MainWindow *ui;
     About *aboutWindow;
     Preferences *preferencesWindow;
     QStatusBar *statusBar;
     QtMenuGen* menugen;
+
+    QUndoGroup* _undo_group;
+    QAction* _undo_action;
+    QAction* _redo_action;
+    QMenu* _edit_menu;
 };
 
 #endif // MAINWINDOW_H
