@@ -52,6 +52,12 @@ protected:
 
 private slots:
     int aboutToClose();
+    /*!
+     * \brief closeRequest explicit call to close the QApplication
+     *
+     * Runs through \sa aboutToClose() before closing or ignoring.
+     */
+    void closeRequest();
 
 private:
     Ui::MainWindow *ui;

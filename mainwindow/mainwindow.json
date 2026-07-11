@@ -50,7 +50,7 @@
                 "toolbar_hidden": true,
                 "shortcut": "Ctrl+Q",
                 "icon": ":/common/exit",
-                "slot": "prepareToClose()",
+                "slot": "closeRequest()",
                 "comment": "This will be applied to mac osx application menu automatically."
             }
         ]

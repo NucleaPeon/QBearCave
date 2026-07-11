@@ -61,7 +61,13 @@ void MainWindow::editMenuAboutToHide()
 int MainWindow::aboutToClose()
 {
     qDebug() << Q_FUNC_INFO;
+    // Put closing checks in this function
     return QDialog::Accepted;
+}
+
+void MainWindow::closeRequest()
+{
+    this->close();
 }
 
 
